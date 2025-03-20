@@ -6,8 +6,8 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-2xl font-bold">DeepFake</div>
         <nav className="space-x-4">
-          <a href="/" className="text-white">Home</a>
-          <a href="/aboutus" className="text-white">About Us</a>
+          <a href="/home" className="text-white">Home</a>
+          <a href="/" className="text-white">About Us</a>
           <a href="/detect" className="text-white">Detect</a>
           <a href="/contact" className="text-white">Contact</a>
         </nav>

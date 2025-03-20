@@ -3,8 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+
 import Home from "../pages/Home";
-import Navbar from './components/Navbar'
+import ContactUs from "../pages/contactUs";
 
 const App = () => {
   return (
@@ -17,9 +21,10 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/contact" element={<ContactUs />}/>
         </Routes>
       </Router>
-
+      <Footer />
     </>
   );
 };
