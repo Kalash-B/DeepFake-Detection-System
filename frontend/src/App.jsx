@@ -3,12 +3,17 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
+<<<<<<< HEAD
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 
 import Home from "../pages/Home";
 import ContactUs from "../pages/contactUs";
+=======
+import Home from "./pages/Home";
+import Navbar from './components/Navbar'
+>>>>>>> f73503d134c544eb9e3f6d1775304b0b14852125
 
 const App = () => {
   return (
