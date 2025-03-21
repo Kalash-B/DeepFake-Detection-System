@@ -1,5 +1,7 @@
 import React from "react";
-import HeroSection from "../components/HeroSection";
+import HeroSection from "../components/HeroSection"
+import AboutUs from "../components/AboutUs"
+import DeepFakeFinder from "./components/detect"
 
 
 const Home = () => {
@@ -7,6 +9,8 @@ const Home = () => {
     <>
     
       <HeroSection />
+      <AboutUs />
+      <DeepFakeFinder />
     </>
   );
 };
