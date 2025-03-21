@@ -5,6 +5,7 @@ import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import Home from "./pages/Home";
 import Navbar from './components/Navbar'
+import HeroSection from "./components/HeroSection";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/detect" element={<HeroSection />} />
         </Routes>
       </Router>
 
