@@ -1,8 +1,7 @@
 import React from "react";
 import HeroSection from "../components/HeroSection"
 import AboutUs from "../components/AboutUs"
-import DeepFakeFinder from "../components/detect"
-import Footer from "../components/Footer"
+import DeepFakeFinder from "../components/DeepFakeFinder"
 
 const Home = () => {
   return (
@@ -11,7 +10,6 @@ const Home = () => {
       <HeroSection />
       <AboutUs />
       <DeepFakeFinder />
-      <Footer />
     </div>
   );
 };
