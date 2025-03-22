@@ -7,7 +7,7 @@ const AboutUs = () => {
             <div className="left w-full md:p-10 p-5 text-white">
                 <h1 className="text-2xl md:text-5xl font-bold">About Us</h1>
 
-                <p className="mt-4 md:w-3/4 text-sm md:text-base text-textColor font-semibold ">The rise of Deepfake technology has led to increased concerns about misinformation, identity fraud, and security threats. Deepfake media, created using advanced AI-based generative models, can manipulate images and videos to misrepresent individuals, leading to false narratives, privacy breaches, and social distrust. Traditional detection methods are often ineffective against rapidly evolving AI-generated deepfake content. Therefore, there is a need for a real-time, AI-driven Deepfake Detection System that can efficiently analyse images and videos, distinguishing authentic content from manipulated media with high accuracy.</p>
+                <p className="mt-10 md:w-5/6 text-sm md:text-base text-justify text-textColor font-semibold ">The rise of Deepfake technology has led to increased concerns about misinformation, identity fraud, and security threats. Deepfake media, created using advanced AI-based generative models, can manipulate images and videos to misrepresent individuals, leading to false narratives, privacy breaches, and social distrust. Traditional detection methods are often ineffective against rapidly evolving AI-generated deepfake content. Therefore, there is a need for a real-time, AI-driven Deepfake Detection System that can efficiently analyse images and videos, distinguishing authentic content from manipulated media with high accuracy.</p>
 
             </div>
             <div className="right w-full bg-blue relative flex justify-center">
