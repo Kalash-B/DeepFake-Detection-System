@@ -1,7 +1,7 @@
 import React from "react";
 import HeroSection from "../components/HeroSection"
 import AboutUs from "../components/AboutUs"
-import DeepFakeFinder from "../components/detect"
+import DeepFakeFinder from "../components/DeepFakeFinder"
 import Footer from "../components/Footer"
 
 const Home = () => {
