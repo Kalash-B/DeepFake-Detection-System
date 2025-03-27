@@ -35,8 +35,9 @@ def register_routes(app):
 
         connection = get_db_connection()
         cursor = connection.cursor()
+
         cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
-        user = cursor.fetchone()
+        user = cursor.fetchone()  # ✅ Returns None if no user is found
         connection.close()
 
         if user and bcrypt.check_password_hash(user["password"], password):
@@ -44,6 +45,7 @@ def register_routes(app):
             return jsonify({"token": access_token, "username": user["username"]}), 200
         else:
             return jsonify({"error": "Invalid credentials"}), 401
+
 
     @app.route("/dashboard", methods=["GET"])
     @jwt_required()

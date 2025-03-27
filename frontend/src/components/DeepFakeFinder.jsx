@@ -11,6 +11,7 @@ const DeepFakeFinder = () => {
   const [loading, setLoading] = useState(false);
   const [prediction, setPrediction] = useState("");
   const [confidence, setConfidence] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token"));
 
   // Drag and drop handler
   const onDrop = useCallback((acceptedFiles) => {
@@ -35,6 +36,11 @@ const DeepFakeFinder = () => {
 
   // Upload & Predict function
   const handleUpload = async () => {
+    if (!isLoggedIn){
+      setUploadStatus("⚠ Please login first.");
+      return
+    }
+
     if (!selectedFile) {
       setUploadStatus("⚠ Please select or drop an image first.");
       return;

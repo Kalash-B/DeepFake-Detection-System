@@ -5,9 +5,20 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from PIL import Image
+from config import SECRET_KEY, JWT_SECRET_KEY
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
+from models import create_table
+from routes import register_routes
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = SECRET_KEY
+app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
+
+bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
 CORS(app)
+
 
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
@@ -59,6 +70,11 @@ def upload_image():
         return jsonify({"prediction": result, "confidence": confidence, "filename": filename})
 
     return jsonify({"error": "Invalid file format"}), 400
+
+create_table()
+
+# Register routes
+register_routes(app)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

@@ -2,7 +2,7 @@ import React from "react";
 import HeroSection from "../components/HeroSection"
 import AboutUs from "../components/AboutUs"
 import DeepFakeFinder from "../components/DeepFakeFinder"
-import Footer from "../components/Footer"
+import NewsComponent from "../components/NewsComponent"
 
 const Home = () => {
   return (
