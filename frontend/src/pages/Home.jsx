@@ -11,7 +11,7 @@ const Home = () => {
       <HeroSection />
       <AboutUs />
       <DeepFakeFinder />
-      <Footer />
+      <NewsComponent />
     </div>
   );
 };
