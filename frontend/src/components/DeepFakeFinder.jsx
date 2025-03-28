@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
@@ -12,14 +11,16 @@ const DeepFakeFinder = () => {
   const [prediction, setPrediction] = useState("");
   const [confidence, setConfidence] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token"));
+  const [fileType, setFileType] = useState(null); // Track if it's an image or video
 
   // Drag and drop handler
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
     if (file) {
       setSelectedFile(file);
+      setFileType(file.type.startsWith("image") ? "image" : "video"); // Identify file type
       setPreview(URL.createObjectURL(file));
-      setPrediction(""); // Reset previous result
+      setPrediction("");
       setConfidence(null);
     }
   }, []);
@@ -27,22 +28,25 @@ const DeepFakeFinder = () => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
-      'image/png': ['.png'],
-      'image/jpeg': ['.jpg', '.jpeg'],
-      'image/webp': ['.webp']
+      "image/png": [".png"],
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/webp": [".webp"],
+      "video/mp4": [".mp4"],
+      "video/avi": [".avi"],
+      "video/mov": [".mov"],
     },
     multiple: false,
   });
 
   // Upload & Predict function
   const handleUpload = async () => {
-    if (!isLoggedIn){
+    if (!isLoggedIn) {
       setUploadStatus("⚠ Please login first.");
-      return
+      return;
     }
 
     if (!selectedFile) {
-      setUploadStatus("⚠ Please select or drop an image first.");
+      setUploadStatus("⚠ Please select an image or video.");
       return;
     }
 
@@ -53,7 +57,8 @@ const DeepFakeFinder = () => {
     setUploadStatus("");
 
     try {
-      const response = await axios.post("http://localhost:5000/upload", formData, {
+      const endpoint = fileType === "video" ? "/upload_video" : "/upload"; // Choose API endpoint
+      const response = await axios.post(`http://localhost:5000${endpoint}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -70,7 +75,7 @@ const DeepFakeFinder = () => {
   return (
     <div className="bg-gray-900 flex items-center justify-center min-h-screen w-full">
       <div className="text-center bg-white p-10 rounded-lg shadow-lg w-1/2">
-        <h1 className="text-gray-900 text-3xl font-semibold mb-6">DeepFake Image Detector</h1>
+        <h1 className="text-gray-900 text-3xl font-semibold mb-6">DeepFake Detector</h1>
 
         {/* Drag & Drop Zone */}
         <div
@@ -78,17 +83,25 @@ const DeepFakeFinder = () => {
           className="border-dashed border-2 border-gray-400 rounded-lg p-6 mb-4 cursor-pointer bg-gray-100 hover:bg-gray-200"
         >
           <input {...getInputProps()} />
-          <p className="text-gray-700">Drag & Drop an image here, or click to select</p>
+          <p className="text-gray-700">Drag & Drop an image/video here, or click to select</p>
         </div>
 
-        {/* Image Preview */}
-        {preview && (
+        {/* Preview for Image/Video */}
+        {preview && fileType === "image" && (
           <motion.img
             src={preview}
             alt="Selected"
             className="rounded-lg mx-auto mb-4 h-48 object-cover shadow-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+          />
+        )}
+
+        {preview && fileType === "video" && (
+          <video
+            src={preview}
+            className="rounded-lg mx-auto mb-4 h-48 shadow-md"
+            controls
           />
         )}
 

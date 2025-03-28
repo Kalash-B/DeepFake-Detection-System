@@ -3,9 +3,9 @@ import imgMain from "../assets/img1.jpg";
 
 const NewsComponent = () => {
   return (
-    <div className="bg-gray-900 py-12 px-6 md:px-12">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="bg-gray-900 py-12 px-6 md:px-12 h-screen flex justify-center align-center">
+      <div className="max-w-6xl mx-auto h-full flex justify-center ">
+        <div className="grid grid-cols-1 h-full md:grid-cols-3 gap-8 items-center">
           {/* Main News Section */}
           <div className="md:col-span-2">
             <a

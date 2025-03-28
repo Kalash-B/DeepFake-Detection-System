@@ -1,4 +1,4 @@
-import React from "react";
+import React , { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -14,12 +14,13 @@ import DeepFakeFinder from "./components/DeepFakeFinder";
 import NewsComponent from "./components/NewsComponent";
 
 const App = () => {
+  const [isLoggrdin, setIsLoggrdin] = useState(localStorage.getItem("token"));
   return (
     <>
       <Navbar />
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/" element={isLoggrdin ? <Home /> : <Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />

@@ -2,7 +2,7 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen text-center px-4 bg-gray-900">
+    <main className="flex flex-col items-center justify-center min-h-screen text-center px-4 bg-gray-800">
       <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold mt-8 font-serif">Advanced DeepFake</h1>
       <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-500">
         Detection<span className="text-white">Platform</span>
