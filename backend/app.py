@@ -31,6 +31,11 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 # Ensure upload folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+REAL_FOLDER = os.path.join(UPLOAD_FOLDER, "real")
+FAKE_FOLDER = os.path.join(UPLOAD_FOLDER, "fake")
+os.makedirs(REAL_FOLDER, exist_ok=True)
+os.makedirs(FAKE_FOLDER, exist_ok=True)
+
 # Function to check allowed file types
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -76,18 +81,27 @@ def upload_image():
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-        file.save(filepath)
+        temp_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        file.save(temp_path)
 
         # Preprocess the image and make prediction
-        img_array = preprocess_image(filepath)
+        img_array = preprocess_image(temp_path)
         prediction = model.predict(img_array)[0][0]
 
-        # Convert prediction result
-        result = "Fake" if prediction > 0.53 else "Real"
+        # Determine result
+        result = "Fake" if prediction > 0.5 else "Real"
         confidence = round(float(prediction) * 100, 2) if result == "Fake" else round((1 - float(prediction)) * 100, 2)
 
-        return jsonify({"prediction": result, "confidence": confidence, "filename": filename})
+        # Define the final save location
+        if result == "Fake":
+            final_path = os.path.join(FAKE_FOLDER, filename)
+        else:
+            final_path = os.path.join(REAL_FOLDER, filename)
+
+        # Move the file to the respective folder
+        os.rename(temp_path, final_path)
+
+        return jsonify({"prediction": result, "confidence": confidence, "filename": filename, "saved_path": final_path})
 
     return jsonify({"error": "Invalid file format"}), 400
 
@@ -104,12 +118,11 @@ def upload_video():
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-        file.save(filepath)
+        temp_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        file.save(temp_path)
 
-        # Extract frames and predict
-        frames = extract_frames(filepath, frame_interval=10)
-        print(len(frames))
+        # Extract frames from the video and predict deepfake probability
+        frames = extract_frames(temp_path, frame_interval=10)
         predictions = []
         
         for frame in frames:
@@ -118,12 +131,21 @@ def upload_video():
             img_array = np.expand_dims(img_array, axis=0)
             prediction = model.predict(img_array)[0][0]
             predictions.append(prediction)
-        
+
+        # Calculate average prediction score
         avg_prediction = np.mean(predictions)
-        result = "Fake" if avg_prediction > 0.53 else "Real"
+        result = "Fake" if avg_prediction > 0.5 else "Real"
         confidence = round(float(avg_prediction) * 100, 2) if result == "Fake" else round((1 - float(avg_prediction)) * 100, 2)
-        
-        return jsonify({"prediction": result, "confidence": confidence, "filename": filename})
+
+        # Move the file to the correct folder based on prediction
+        if result == "Fake":
+            final_path = os.path.join(FAKE_FOLDER, filename)
+        else:
+            final_path = os.path.join(REAL_FOLDER, filename)
+
+        os.rename(temp_path, final_path)  # Move video to respective folder
+
+        return jsonify({"prediction": result, "confidence": confidence, "filename": filename, "saved_path": final_path})
 
     return jsonify({"error": "Invalid file format"}), 400
 
