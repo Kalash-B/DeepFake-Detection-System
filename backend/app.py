@@ -2,7 +2,7 @@ import os
 import numpy as np
 import tensorflow as tf
 import cv2
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -27,6 +27,16 @@ MODEL_PATH = "./model/deepfake_model.h5"
 # Load the trained deepfake detection model
 model = tf.keras.models.load_model(MODEL_PATH)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+frontend_folder = os.path.join(os.getcwd(),"..","frontend")
+dist_folder = os.path.join(frontend_folder,"dist")
+
+@app.route("/", defaults={"filename": ""})
+@app.route("/<path:filename>")
+def index(filename):
+    if not filename:
+        filename = "index.html"
+    return send_from_directory(dist_folder, filename)
 
 # Ensure upload folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
