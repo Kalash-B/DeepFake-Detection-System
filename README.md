@@ -1,7 +1,3 @@
-✅ README.md for Deepfake Detection System (Full Stack)
-markdown
-Copy
-Edit
 # 🧠 Deepfake Detection System (Full Stack)
 
 A complete Deepfake Detection web application using **Flask** (Python backend) and **React + Vite** (frontend). This system allows users to upload an image and get real-time predictions on whether the image is **Real** or **Deepfake**.
@@ -109,6 +105,8 @@ Integrate with news/media verification
 This project is licensed under the MIT License.
 
 🙋‍♂️ Author
+
 Kalash Baldota
+
 🧑‍💻 IT Engineering Student @ PCCOER
-🔗 GitHub
+
