@@ -103,9 +103,10 @@ def predict():
 
 🙋‍♂️ Author
 
-Kalash Baldota
-Shreya Patil
+- Kalash Baldota
+- Shreya Patil
 
 🧑‍💻 IT Engineering Student @ PCCOER
+
 
 
