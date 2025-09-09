@@ -93,20 +93,19 @@ def predict():
     return jsonify({"prediction": result})
 ``` 
 🎯 Future Enhancements
-Use Transfer Learning (MobileNet, EfficientNet)
+- Use Transfer Learning (MobileNet, EfficientNet)
+- Host on Render/Vercel
+- Add user login and history tracking
+- Integrate with news/media verification
+- 📄 License : This project is licensed under the MIT License.
 
-Host on Render/Vercel
-
-Add user login and history tracking
-
-Integrate with news/media verification
-
-📄 License
-This project is licensed under the MIT License.
+---
 
 🙋‍♂️ Author
 
 Kalash Baldota
+Shreya Patil
 
 🧑‍💻 IT Engineering Student @ PCCOER
+
 
